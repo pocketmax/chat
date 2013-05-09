@@ -3,9 +3,9 @@
  cmd: sudo node server.js
  this file runs on port 81
  */
-var app = require('http').createServer(handler)
-        , io = require('socket.io').listen(app)
-        , fs = require('fs')
+var app = require('http').createServer(handler);
+var io = require('socket.io').listen(app);
+var fs = require('fs');
 
 app.listen(81);
 

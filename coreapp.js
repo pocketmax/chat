@@ -30,7 +30,7 @@ Ext.application({
                     enableKeyEvents: true,
                     listeners: {
                         specialkey: function(t, e, eopts) {
-                            if (e.getKey() == Ext.EventObject.ENTER) {
+                            if (e.getKey() === Ext.EventObject.ENTER) {
                                 
                                 var room = Ext.getCmp('room');
                                 var message = t.getValue();

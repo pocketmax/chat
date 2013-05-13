@@ -12,4 +12,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('news', function(msg) {
         socket.broadcast.emit('news', {data: msg.data});
     });
+
+    socket.on('ds', function(msg) {
+        socket.broadcast.emit('ds', {data: msg.data});
+    });
+
 });

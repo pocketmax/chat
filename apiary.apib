@@ -1,12 +1,16 @@
 FORMAT: 1A
 
-# Gist Fox API
+# muh stuff
 Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.github.com]
 
-# Gist Fox API Root [/]
-Gist Fox API entry point.
+# Group accounts
+## fetch all accounts [/accounts/?sortDir={sortDir}&ids={ids}]
+fetch all accounts
 
-This resource does not have any attributes. Instead it offers the initial API affordances in the form of the HTTP Link header and HAL links.
++ Parameters
+
+    + sortDir (string) ... ASC or DESC for sort direction
+    + ids (string) ... list of ids
 
 ## Retrieve Entry Point [GET]
 
@@ -24,7 +28,34 @@ This resource does not have any attributes. Instead it offers the initial API af
                 }
             }
             
-# Group Gist
+
+## fetch a single account [/accounts/{id}]
+Gist Fox API entry point.
+
+This resource does not have any attributes. Instead it offers the initial API affordances in the form of the HTTP Link header and HAL links.
+The Gist resource has the following attributes:
+
++ Parameters
+
+    + id (string) ... ID of the gist in the form of a hash
+
+## Retrieve Entry Point [GET]
+
++ Response 200 (application/hal+json)
+    + Headers
+    
+            Link: <http:/api.gistfox.com/>;rel="self",<http:/api.gistfox.com/gists>;rel="gists"
+
+    + Body
+
+            {
+                "_links": {
+                    "self": { "href": "/" },
+                    "gists": { "href": "/gists?{since}", "templated": true }
+                }
+            }
+            
+# Group Gist 123
 Gist-related resources of *Gist Fox API*.
 
 ## Gist [/gists/{id}]

@@ -3,31 +3,115 @@ FORMAT: 1A
 # muh stuff
 Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.github.com]
 
-# Group accounts
-## fetch all accounts [/accounts/?sortDir={sortDir}&ids={ids}]
-fetch all accounts
+# Group authentication
 
-+ Parameters
+## accounts [/access/accounts]
+bla 123
 
-    + sortDir (string) ... ASC or DESC for sort direction
-    + ids (string) ... list of ids
-
-## Retrieve Entry Point [GET]
+## Search all accounts [GET]
 
 + Response 200 (application/hal+json)
     + Headers
-    
-            Link: <http:/api.gistfox.com/>;rel="self",<http:/api.gistfox.com/gists>;rel="gists"
-
     + Body
+    
+            {}
 
-            {
-                "_links": {
-                    "self": { "href": "/" },
-                    "gists": { "href": "/gists?{since}", "templated": true }
-                }
-            }
-            
+## Create a single account [POST]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## Update a single account [PATCH]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+
+## Delete a single account [DELETE]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## users [/access/users]
+bla 123
+
+## Search users [GET]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## Create user [POST]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## Update user [PATCH]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+
+## Delete user [DELETE]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## users [/access/]
+bla 123
+
+## Search users [GET]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## Create user [POST]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+## Update user [PATCH]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
+
+
+## Delete user [DELETE]
+
++ Response 200 (application/hal+json)
+    + Headers
+    + Body
+    
+            {}
 
 ## fetch a single account [/accounts/{id}]
 Gist Fox API entry point.

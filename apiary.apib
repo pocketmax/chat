@@ -4,6 +4,26 @@ HOST: http://bla.com
 # muh stuff
 Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.github.com]
 
+##Allowed HTTPs requests:
+
+- `POST` - Creates or updates a resource
+- `PUT` - Updates a resource
+- `GET` - Retrieves a resource or list of resources
+- `DELETE` - Delete a resource
+
+##Typical Server Responses
+
+- 200 `OK` - The request was successful (some API calls may return 201 instead).
+- 201 `Created` - The request was successful and a resource was created.
+- 204 `No Content` - The request was successful but there is no representation to return (that is, the response is empty).
+- 400 `Bad Request` - The request could not be understood or was missing required parameters.
+- 401 `Unauthorized` - Authentication failed or user does not have permissions for the requested operation.
+- 403 `Forbidden` - Access denied.
+- 404 `Not Found` - Resource was not found.
+- 405 `Method Not Allowed` - Requested method is not supported for the specified resource.
+- 429 `Too Many Requests` - Exceeded GoodData API limits. Pause requests, wait one minute, and try again. 
+- 503 `Service Unavailable` - The service is temporary unavailable (e.g. scheduled Platform Maintenance). Try again later.
+
 # Group addressbook
 
 # search contacts [/addressbook/contacts/{&ids}{&name}{&firstName}{&lastName}{&middleName}]
@@ -26,14 +46,38 @@ search contacts
 # contacts [/addressbook/contacts/]
 handle contacts
 
+## query contacts [PUT]
++ Response 200 (application/hal+json)
+
++ request query for contacts (application/hal+json)
+
+        {
+            "fields": {
+                "firstName": "foo",
+                "lastName": "bar",
+                "title": "ceo"
+            },
+            "order": {
+                "sortBy": "firstName ASC"
+            }
+            
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "id": "123456"
+        }
+        
 ## Create a single contact [POST]
+
 + Response 200 (application/hal+json)
 
 + request create a person (application/hal+json)
 
         {
             "firstName": "foo",
-            "lastName": "bar"
+            "lastName": "bar",
+            "title": "ceo"
         }
 + Response 200 (application/hal+json)
 
@@ -50,7 +94,6 @@ handle contacts
         {
             "id": "123456"
         }
-
 + request create a person/company combo and return multiple IDs (application/hal+json)
 
         {
@@ -67,8 +110,26 @@ handle contacts
                 "id": "453445"
             }]
         }
+
++ request create an assistant assoc (application/hal+json)
+
+        {
+            "firstName": "foo",
+            "lastName": "bar",
+            "title": "assistant",
+            "assists": [123,456]  //contact ids of people they assist
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "data": [{
+                "id": "123456"
+            },{
+                "id": "453445"
+            }]
+        }
         
-## Update a single contact [PUT]
+## Update a single contact [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single contact [DELETE]
@@ -80,7 +141,7 @@ handle street addresses
 ## Search all street addresses [GET]
 + Response 200 (application/hal+json)
 
-## Update a single street addresses [PUT]
+## Update a single street addresses [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single street addresses [DELETE]
@@ -92,7 +153,7 @@ handle phone numbers
 ## Search all phone numbers [GET]
 + Response 200 (application/hal+json)
 
-## Update a single phone numbers [PUT]
+## Update a single phone numbers [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single phone numbers [DELETE]
@@ -124,7 +185,7 @@ handle projects
 ## Create a single project [POST]
 + Response 200 (application/hal+json)
 
-## Update a single project [PUT]
+## Update a single project [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single project [DELETE]
@@ -139,7 +200,7 @@ handle milestones
 ## Create a single milestone [POST]
 + Response 200 (application/hal+json)
 
-## Update a single milestone [PUT]
+## Update a single milestone [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single milestone [DELETE]
@@ -154,7 +215,7 @@ handle tasks
 ## Create a single task [POST]
 + Response 200 (application/hal+json)
 
-## Update a single task [PUT]
+## Update a single task [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single task [DELETE]
@@ -169,7 +230,7 @@ handle taskentries
 ## Create a single taskentry [POST]
 + Response 200 (application/hal+json)
 
-## Update a single taskentry [PUT]
+## Update a single taskentry [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single taskentry [DELETE]
@@ -186,7 +247,7 @@ handle users
 ## Create a single user [POST]
 + Response 200 (application/hal+json)
 
-## Update a single user [PUT]
+## Update a single user [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single user [DELETE]
@@ -201,7 +262,7 @@ handle usergroups
 ## Create a single usergroup [POST]
 + Response 200 (application/hal+json)
 
-## Update a single usergroup [PUT]
+## Update a single usergroup [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single usergroup [DELETE]
@@ -216,7 +277,7 @@ handle accounts
 ## Create a single account [POST]
 + Response 200 (application/hal+json)
 
-## Update a single account [PUT]
+## Update a single account [PATCH]
 + Response 200 (application/hal+json)
 
 ## Delete a single account [DELETE]

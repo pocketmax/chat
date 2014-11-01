@@ -56,13 +56,19 @@ handle phone numbers
 ## Delete a single phone numbers [DELETE]
 + Response 200 (application/hal+json)
 
-# bulk import contacts [/addressbook/bulkimport]
+# bulk import contacts [/addressbook/import]
 import contacts in bulk
 
 ## Upload dataset of new contacts [POST]
 + Response 200 (application/hal+json)
 
 ## Delete multiple contacts [DELETE]
++ Response 200 (application/hal+json)
+
+# export contacts [/addressbook/export]
+export contacts
+
+## pass in query object [POST]
 + Response 200 (application/hal+json)
 
 # Group planning

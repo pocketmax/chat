@@ -6,11 +6,22 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 
 # Group addressbook
 
-# contacts [/addressbook/contacts]
+# contacts [/addressbook/contacts/{id}]
 handle contacts
 
 ## Search all contacts [GET]
 + Response 200 (application/hal+json)
+
++ request this is a test (application/hal+json)
+
+        {
+            "message": "test"
+        }
++ Parameters
+    + id (optional, number) ... Maximum number of posts to retrieve
+    
++ Response 200 (application/hal+json)
+
 
 ## Create a single contact [POST]
 + Response 200 (application/hal+json)

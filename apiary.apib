@@ -116,14 +116,69 @@ handle taskentries
 ## Delete a single taskentry [DELETE]
 + Response 200 (application/hal+json)
 
+# Group access
+
+# users [/access/users]
+handle users
+
+## Search all users [GET]
++ Response 200 (application/hal+json)
+
+## Create a single user [POST]
++ Response 200 (application/hal+json)
+
+## Update a single user [PUT]
++ Response 200 (application/hal+json)
+
+## Delete a single user [DELETE]
++ Response 200 (application/hal+json)
+
+# usergroups [/access/usergroups]
+handle usergroups
+
+## Search all usergroups [GET]
++ Response 200 (application/hal+json)
+
+## Create a single usergroup [POST]
++ Response 200 (application/hal+json)
+
+## Update a single usergroup [PUT]
++ Response 200 (application/hal+json)
+
+## Delete a single usergroup [DELETE]
++ Response 200 (application/hal+json)
+
+# accounts [/access/accounts]
+handle accounts
+
+## Search all accounts [GET]
++ Response 200 (application/hal+json)
+
+## Create a single account [POST]
++ Response 200 (application/hal+json)
+
+## Update a single account [PUT]
++ Response 200 (application/hal+json)
+
+## Delete a single account [DELETE]
++ Response 200 (application/hal+json)
+
+# authenticate [/access/authenticate]
+
+## pass username/password to login to the system [POST]
++ Response 200 (application/hal+json)
+
+## pass an auth token to logoff the system [DELETE]
++ Response 200 (application/hal+json)
+
+# authorize [/access/authorize]
+
+## pass subject/object to check if user has access to that object [POST]
++ Response 200 (application/hal+json)
 
 
 
-
-
-
-
-## users [/access/users]
+## users [/accesssdf/users]
 bla 123
 
 ## Search users [GET]

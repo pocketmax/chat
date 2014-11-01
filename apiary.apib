@@ -1,4 +1,4 @@
-FORMAT: 1A
+FORMAT: X-1A
 HOST: http://bla.com
 
 # muh stuff
@@ -26,21 +26,16 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 
 # Group addressbook
 
-# search contacts [/addressbook/contacts/{&ids}{&name}{&firstName}{&lastName}{&middleName}]
-search contacts
+# GET /addressbook/contacts/{ids}
+gets a single contact
 
-## Search all contacts [GET]
 + Response 200 (application/hal+json)
 
 + request get a specific contact (application/hal+json)
 
 + Parameters
-    + ids (optional, string, `123,456`) ... comma seperated list of ids of contact
-    + name (optional, string) ... ID of contact
-    + firstName (optional, string) ... First Name
-    + lastName (optional, string) ... Last Name
-    + middleName (optional, string) ... Middle Name
-
+    + ids (required, string, `123,456`) ... contact ID
+    
 + Response 200 (application/hal+json)
 
 # contacts [/addressbook/contacts/]
@@ -147,17 +142,22 @@ handle street addresses
 ## Delete a single street addresses [DELETE]
 + Response 200 (application/hal+json)
 
-# phone numbers [/addressbook/phonenumbers]
-handle phone numbers
+# departments [/addressbook/departments/]
+handle departments for company contacts
 
-## Search all phone numbers [GET]
+## query department [PUT]
 + Response 200 (application/hal+json)
 
-## Update a single phone numbers [PATCH]
++ request query for department (application/hal+json)
+
+        {
+            "departmentId": 123
+        }
 + Response 200 (application/hal+json)
 
-## Delete a single phone numbers [DELETE]
-+ Response 200 (application/hal+json)
+        {
+            "id": "123456"
+        }
 
 # bulk import contacts [/addressbook/import]
 import contacts in bulk

@@ -4,43 +4,57 @@ HOST: http://bla.com
 # muh stuff
 Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.github.com]
 
-# Group authentication
+# Group addressbook
 
-## accounts [/access/accounts]
-bla 123
+# contacts [/addressbook/contacts]
+handle contacts
 
-## Search all accounts [GET]
-
+## Search all contacts [GET]
 + Response 200 (application/hal+json)
-    + Headers
-    + Body
-    
-            {}
 
-## Create a single account [POST]
-
+## Create a single contact [POST]
 + Response 200 (application/hal+json)
-    + Headers
-    + Body
-    
-            {}
 
-## Update a single account [PATCH]
-
+## Update a single contact [PUT]
 + Response 200 (application/hal+json)
-    + Headers
-    + Body
-    
-            {}
 
-
-## Delete a single account [DELETE]
-
+## Delete a single contact [DELETE]
 + Response 200 (application/hal+json)
-    + Headers
-    + Body
-    
-            {}
+
+# street addresses [/addressbook/streetaddresses]
+handle street addresses
+
+## Search all street addresses [GET]
++ Response 200 (application/hal+json)
+
+## Update a single street addresses [PUT]
++ Response 200 (application/hal+json)
+
+## Delete a single street addresses [DELETE]
++ Response 200 (application/hal+json)
+
+# phone numbers [/addressbook/phonenumbers]
+handle phone numbers
+
+## Search all phone numbers [GET]
++ Response 200 (application/hal+json)
+
+## Update a single phone numbers [PUT]
++ Response 200 (application/hal+json)
+
+## Delete a single phone numbers [DELETE]
++ Response 200 (application/hal+json)
+
+# bulk import contacts [/addressbook/bulk]
+import contacts in bulk
+
+## Upload dataset of new contacts [POST]
++ Response 200 (application/hal+json)
+
+## Delete multiple contacts [DELETE]
++ Response 200 (application/hal+json)
+
+
 
 ## users [/access/users]
 bla 123

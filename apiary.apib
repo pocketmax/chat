@@ -6,26 +6,68 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 
 # Group addressbook
 
-# contacts [/addressbook/contacts/{id}]
-handle contacts
+# search contacts [/addressbook/contacts/{&ids}{&name}{&firstName}{&lastName}{&middleName}]
+search contacts
 
 ## Search all contacts [GET]
 + Response 200 (application/hal+json)
 
-+ request this is a test (application/hal+json)
++ request get a specific contact (application/hal+json)
 
-        {
-            "message": "test"
-        }
 + Parameters
-    + id (optional, number) ... Maximum number of posts to retrieve
-    
+    + ids (optional, string, `123,456`) ... comma seperated list of ids of contact
+    + name (optional, string) ... ID of contact
+    + firstName (optional, string) ... First Name
+    + lastName (optional, string) ... Last Name
+    + middleName (optional, string) ... Middle Name
+
 + Response 200 (application/hal+json)
 
+# contacts [/addressbook/contacts/]
+handle contacts
 
 ## Create a single contact [POST]
 + Response 200 (application/hal+json)
 
++ request create a person (application/hal+json)
+
+        {
+            "firstName": "foo",
+            "lastName": "bar"
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "id": "123456"
+        }
++ request create a company (application/hal+json)
+
+        {
+            "companyName": "foobar inc"
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "id": "123456"
+        }
+
++ request create a person/company combo and return multiple IDs (application/hal+json)
+
+        {
+            "firstName": "foo",
+            "lastName": "bar",
+            "companyName": "foobar inc"
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "data": [{
+                "id": "123456"
+            },{
+                "id": "453445"
+            }]
+        }
+        
 ## Update a single contact [PUT]
 + Response 200 (application/hal+json)
 

@@ -26,7 +26,7 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 
 # Group addressbook
 
-# search contacts [/addressbook/contacts/{&groupBy}{&sortBy}]
+# search contacts [/addressbook/contacts/{&groupBy}{&sortBy}{&limit}{&pageNum}]
 search contacts
 
 ## Search all contacts [GET]
@@ -59,6 +59,8 @@ firstName ASC,
 + Parameters
     + groupBy (optional, string, `field1,field2`) ... list of fields to group by
     + sortBy (optional, string, `field1`) ... field to sort by
+    + pageNum (optional, string, `3`) ... page number if limit is specified
+    + limit (optional, number, `100`) ... limit number of results
 
 + Response 200 (application/hal+json)
 
@@ -81,6 +83,7 @@ handle contacts
             }
             
         }
+
 + Response 200 (application/hal+json)
 
         {
@@ -101,7 +104,32 @@ handle contacts
 + Response 200 (application/hal+json)
 
         {
-            "id": "123456"
+            "data": {
+                "id": "123456",
+                "links": {
+                    "delete": "/addressbook/contacts/123456",
+                    "assoc": {
+                        "contacts": {
+                            "assists": {
+                                "345454": "/addressbook/contacts/345454",
+                                "543443": "/addressbook/contacts/543443"
+                            }
+                        }
+                        "orgunits": {
+                            "offices": {
+                                "453444": "/addressbook/orgunits/453444"
+                            },
+                            "departments": {
+                                "453454": "/addressbook/orgunits/453454"
+                            }
+                        }
+                    }
+                    "to": "/task/23234"
+                }
+            },
+            "results": {
+                "respTimeMs": "12"
+            }
         }
 + request create a company (application/hal+json)
 
@@ -164,18 +192,6 @@ handle street addresses
 + Response 200 (application/hal+json)
 
 ## Delete a single street addresses [DELETE]
-+ Response 200 (application/hal+json)
-
-# phone numbers [/addressbook/phonenumbers]
-handle phone numbers
-
-## Search all phone numbers [GET]
-+ Response 200 (application/hal+json)
-
-## Update a single phone numbers [PATCH]
-+ Response 200 (application/hal+json)
-
-## Delete a single phone numbers [DELETE]
 + Response 200 (application/hal+json)
 
 # bulk import contacts [/addressbook/import]
@@ -302,7 +318,7 @@ handle accounts
 ## Delete a single account [DELETE]
 + Response 200 (application/hal+json)
 
-# authenticate [/access/authenticate]
+# authenticate [/access/authenticate/]
 
 ## pass username/password to login to the system [POST]
 + Response 200 (application/hal+json)
@@ -310,11 +326,52 @@ handle accounts
 ## pass an auth token to logoff the system [DELETE]
 + Response 200 (application/hal+json)
 
-# authorize [/access/authorize]
+# authorize [/access/authorize/{shortName}/{id}]
 
 ## pass subject/object to check if user has access to that object [POST]
+
 + Response 200 (application/hal+json)
 
+## check if a user has access to an object and visa versa [GET]
+
++ request get all user permissions to a specific object (application/hal+json)
+
++ Parameters
+    + shortName (required, string, `user,usergroup,project,task`) ... shortName of item
+    + id (required, string, `234234`) ... id of object to check access to
+    
++ Response 200 (application/hal+json)
+
+        {
+            "data": {
+                "inherittedRights": {
+                    "users": {
+                        "12343": {
+                            "read": true
+                        },
+                        "453434": {
+                            "userGroups: {
+                                "111111": {
+                                    "read": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "effectiveRights": {
+                    "users": {
+                        "234234": {
+                            "read": true
+                        }
+                    },
+                    "userGroups": {
+                        "233333": {
+                            "read": true
+                        }
+                    }
+                }
+            }
+        }
 
 
 ## users [/accesssdf/users]

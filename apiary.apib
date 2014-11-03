@@ -29,35 +29,42 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 each response should be in this format
 ```js
 {
-    "data":{},
-    "success": true,
-    "results": {
-        "actions": {
-            "delete": "/v1/addressbook/contacts/ggggggg"
+    "data":{
+        "_customFields": {
+            "mybla": "123"
         },
-        "assoc": {
-            "contacts": {
-                "parents": {
-                    "1111111": "/v1/addressbook/contacts/111111",
-                    "2222222": "/v1/addressbook/contacts/222222"
-                }
+        "_links": {
+            "actions": {
+                "delete": "/v1/addressbook/contacts/ggggggg"
             },
-            "orgunits": {
-                "school": {
-                    "aaaaaa": "/v1/addressbook/orgunits/aaaaaa"
+            "assoc": {
+                "contacts": {
+                    "parents": {
+                        "1111111": "/v1/addressbook/contacts/111111",
+                        "2222222": "/v1/addressbook/contacts/222222"
+                    }
                 },
-                "classes": {
-                    "bbbbbb": "/v1/addressbook/orgunits/bbbbbb"
+                "orgunits": {
+                    "school": {
+                        "aaaaaa": "/v1/addressbook/orgunits/aaaaaa"
+                    },
+                    "classes": {
+                        "bbbbbb": "/v1/addressbook/orgunits/bbbbbb"
+                    }
                 }
             }
         }
+    },
+    "success": true,
+    "results": {
+        "respTimeMs": 23
     }
 }
 ```
 
 # Group addressbook
 
-# search contacts [/addressbook/contacts/{&groupBy}{&sortBy}{&limit}{&pageNum}]
+# search contacts [/v1/addressbook/contacts/{&groupBy}{&sortBy}{&limit}{&pageNum}]
 search contacts
 
 ## Search all contacts [GET]
@@ -95,7 +102,7 @@ firstName ASC,
 
 + Response 200 (application/hal+json)
 
-# contacts [/addressbook/contacts/]
+# contacts [/v1/addressbook/contacts/]
 handle contacts
 
 ## Create a single contact [POST]
@@ -139,7 +146,7 @@ handle contacts
                 "companyName": "foobar inc",
                 "links": {
                     "actions": {
-                        "delete": "/addressbook/contacts/123456"
+                        "delete": "/v1/addressbook/contacts/123456"
                     }
                 }
             },
@@ -163,7 +170,7 @@ handle contacts
                 "companyName": "foobar inc",
                 "links": {
                     "actions": {
-                        "delete": "/addressbook/contacts/123456"
+                        "delete": "/v1/addressbook/contacts/123456"
                     }
                 }
             },{
@@ -172,7 +179,7 @@ handle contacts
                 "lastName": "bar",
                 "links": {
                     "actions": {
-                        "delete": "/addressbook/contacts/aaaaaa"
+                        "delete": "/v1/addressbook/contacts/aaaaaa"
                     }
                 }
             }],
@@ -203,7 +210,7 @@ handle contacts
                     "assoc": {
                         "contacts": {
                             "assists": {
-                                "aaaaaaaa": "/addressbook/contacts/aaaaaaaaa"
+                                "aaaaaaaa": "/v1/addressbook/contacts/aaaaaaaaa"
                             }
                         }
                     }
@@ -239,7 +246,7 @@ handle contacts
                     "assoc": {
                         "contacts": {
                             "assists": {
-                                "aaaaaaaa": "/addressbook/contacts/aaaaaaaaa"
+                                "aaaaaaaa": "/v1/addressbook/contacts/aaaaaaaaa"
                             }
                         }
                     }
@@ -320,7 +327,7 @@ handle contacts
         }
         
 
-# street addresses [/addressbook/streetaddresses]
+# street addresses [/v1/addressbook/streetaddresses]
 handle street addresses
 
 ## Search all street addresses [GET]
@@ -332,7 +339,7 @@ handle street addresses
 ## Delete a single street addresses [DELETE]
 + Response 200 (application/hal+json)
 
-# bulk import contacts [/addressbook/import]
+# bulk import contacts [/v1/addressbook/import]
 import contacts in bulk
 
 ## Upload dataset of new contacts [POST]
@@ -341,7 +348,7 @@ import contacts in bulk
 ## Delete multiple contacts [DELETE]
 + Response 200 (application/hal+json)
 
-# export contacts [/addressbook/export]
+# export contacts [/v1/addressbook/export]
 export contacts
 
 ## pass in query object [POST]
@@ -349,7 +356,7 @@ export contacts
 
 # Group planning
 
-# projects [/planning/projects]
+# projects [/v1/planning/projects]
 handle projects
 
 ## Search all projects [GET]
@@ -364,7 +371,7 @@ handle projects
 ## Delete a single project [DELETE]
 + Response 200 (application/hal+json)
 
-# milestones [/planning/milestones]
+# milestones [/v1/planning/milestones]
 handle milestones
 
 ## Search all milestones [GET]
@@ -379,7 +386,7 @@ handle milestones
 ## Delete a single milestone [DELETE]
 + Response 200 (application/hal+json)
 
-# tasks [/planning/tasks]
+# tasks [/v1/planning/tasks]
 handle tasks
 
 ## Search all tasks [GET]
@@ -394,7 +401,7 @@ handle tasks
 ## Delete a single task [DELETE]
 + Response 200 (application/hal+json)
 
-# taskentries [/planning/tasksentries]
+# taskentries [/v1/planning/tasksentries]
 handle taskentries
 
 ## Search all taskentries [GET]
@@ -411,7 +418,7 @@ handle taskentries
 
 # Group access
 
-# users [/access/users]
+# users [/v1/access/users]
 handle users
 
 ## Search all users [GET]
@@ -441,7 +448,7 @@ handle usergroups
 ## Delete a single usergroup [DELETE]
 + Response 200 (application/hal+json)
 
-# accounts [/access/accounts]
+# accounts [/v1/access/accounts]
 handle accounts
 
 ## Search all accounts [GET]
@@ -456,7 +463,7 @@ handle accounts
 ## Delete a single account [DELETE]
 + Response 200 (application/hal+json)
 
-# authenticate [/access/authenticate/]
+# authenticate [/v1/access/authenticate/]
 
 ## pass username/password to login to the system [POST]
 + Response 200 (application/hal+json)
@@ -464,7 +471,7 @@ handle accounts
 ## pass an auth token to logoff the system [DELETE]
 + Response 200 (application/hal+json)
 
-# authorize [/access/authorize/{shortName}/{id}]
+# authorize [/v1/access/authorize/{shortName}/{id}]
 
 ## pass subject/object to check if user has access to that object [POST]
 

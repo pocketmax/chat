@@ -24,6 +24,37 @@ Gist Fox API is a **pastes service** similar to (GitHub's Gist)[http://gist.gith
 - 429 `Too Many Requests` - Exceeded GoodData API limits. Pause requests, wait one minute, and try again. 
 - 503 `Service Unavailable` - The service is temporary unavailable (e.g. scheduled Platform Maintenance). Try again later.
 
+# Group general
+
+each response should be in this format
+```js
+{
+    "data":{},
+    "results": {
+        "actions": {
+            "delete": "/addressbook/contacts/ggggggg"
+        },
+        "assoc": {
+            "contacts": {
+                "parents": {
+                    "1111111": "/addressbook/contacts/111111",
+                    "2222222": "/addressbook/contacts/222222"
+                }
+            },
+            "orgunits": {
+                "school": {
+                    "aaaaaa": "/addressbook/orgunits/aaaaaa"
+                },
+                "classes": {
+                    "bbbbbb": "/addressbook/orgunits/bbbbbb"
+                }
+            }
+        }
+    }
+}
+```
+
+
 # Group addressbook
 
 # search contacts [/addressbook/contacts/{&groupBy}{&sortBy}{&limit}{&pageNum}]
@@ -67,29 +98,6 @@ firstName ASC,
 # contacts [/addressbook/contacts/]
 handle contacts
 
-## query contacts [PUT]
-+ Response 200 (application/hal+json)
-
-+ request query for contacts (application/hal+json)
-
-        {
-            "fields": {
-                "firstName": "foo",
-                "lastName": "bar",
-                "title": "ceo"
-            },
-            "order": {
-                "sortBy": "firstName ASC"
-            }
-            
-        }
-
-+ Response 200 (application/hal+json)
-
-        {
-            "id": "123456"
-        }
-        
 ## Create a single contact [POST]
 
 + Response 200 (application/hal+json)
@@ -97,34 +105,22 @@ handle contacts
 + request create a person (application/hal+json)
 
         {
-            "firstName": "foo",
-            "lastName": "bar",
-            "title": "ceo"
+            "firstName": "Bart",
+            "lastName": "Simpson",
+            "title": "Student"
         }
 + Response 200 (application/hal+json)
 
         {
             "data": {
                 "id": "123456",
+                "firstName": "Bart",
+                "lastName": "Simpson",
+                "title": "Student",
                 "links": {
-                    "delete": "/addressbook/contacts/123456",
-                    "assoc": {
-                        "contacts": {
-                            "assists": {
-                                "345454": "/addressbook/contacts/345454",
-                                "543443": "/addressbook/contacts/543443"
-                            }
-                        }
-                        "orgunits": {
-                            "offices": {
-                                "453444": "/addressbook/orgunits/453444"
-                            },
-                            "departments": {
-                                "453454": "/addressbook/orgunits/453454"
-                            }
-                        }
+                    "actions": {
+                        "delete": "/addressbook/contacts/123456"
                     }
-                    "to": "/task/23234"
                 }
             },
             "results": {
@@ -181,6 +177,30 @@ handle contacts
 
 ## Delete a single contact [DELETE]
 + Response 200 (application/hal+json)
+
+## query contacts [PUT]
++ Response 200 (application/hal+json)
+
++ request query for contacts (application/hal+json)
+
+        {
+            "fields": {
+                "firstName": "foo",
+                "lastName": "bar",
+                "title": "ceo"
+            },
+            "order": {
+                "sortBy": "firstName ASC"
+            }
+            
+        }
+
++ Response 200 (application/hal+json)
+
+        {
+            "id": "123456"
+        }
+        
 
 # street addresses [/addressbook/streetaddresses]
 handle street addresses

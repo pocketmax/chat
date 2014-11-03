@@ -178,39 +178,6 @@ handle contacts
                 "respTimeMs": 12
             }
         }
-+ request create a person/company combo and split into multiple IDs (application/json)
-
-        {
-            "firstName": "foo",
-            "lastName": "bar",
-            "companyName": "foobar inc"
-        }
-+ Response 200 (application/json)
-
-        {
-            "data": [{
-                "id": "123456",
-                "companyName": "foobar inc",
-                "links": {
-                    "actions": {
-                        "delete": "/v1/addressbook/contacts/123456"
-                    }
-                }
-            },{
-                "id": "aaaaaa",
-                "firstName": "foo",
-                "lastName": "bar",
-                "links": {
-                    "actions": {
-                        "delete": "/v1/addressbook/contacts/aaaaaa"
-                    }
-                }
-            }],
-            "success": true,
-            "results": {
-                "respTimeMs": 12
-            }
-        }
 + request create an assistant assoc (application/json)
 
         {

@@ -38,7 +38,7 @@ each response should be in this format
             "actions": {
                 "delete": "/v1/addressbook/contacts/ggggggg"
             },
-            "assoc": {
+            "assoc": {      //when making assoc create/update changes, only display that change in the results
                 "contacts": {
                     "ASSOCIATION": {
                         "1111111": "/v1/addressbook/contacts/111111"
@@ -52,15 +52,35 @@ each response should be in this format
             }
         }
     },
-    "pageinfo": {
-        "currentItemCount": 4,   //current items desplayed on the page
-        "pageIndex": 4,          //current page
+    "pageInfo": {               //only used if paginated results are applied
+        "currentItemCount": 4,  //current items desplayed on the page
+        "pageIndex": 4,         //current page
         "totalPages": 10,       //total number of pages in the result set
-        "itemsPerPage": 10      //
+        "itemsPerPage": 10      //total number of items per page
+        "startIndex": 1,        //the index of the first item in the current paged results
+        "totalItems": 100       //total number of items in the entire results set
+        "_links": {
+            "next": "/v1/addressbook/contacts/",
+            "current": "/v1/addressbook/contacts/",
+            "previous": "/v1/addressbook/contacts/"
+        }
     },
     "success": true,
     "results": {
         "respTimeMs": 23
+    },
+    "error": {
+        "message": "basdf",
+        "code": 123,
+        "errors": [{
+            "domain": "string",
+            "reason": "",
+            "message": "",
+            "location": "",
+            "locationType": "",
+            "extendedHelp": "",
+            "sendReport": ""
+        }]
     }
 }
 ```
@@ -93,9 +113,9 @@ sortBy
 lastName DESC,
 firstName ASC,
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
-+ request get a specific contact (application/hal+json)
++ request get a specific contact (application/json)
 
 + Parameters
     + groupBy (optional, string, `field1,field2`) ... list of fields to group by
@@ -103,21 +123,21 @@ firstName ASC,
     + pageNum (optional, string, `3`) ... page number if limit is specified
     + limit (optional, number, `100`) ... limit number of results
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # contacts [/v1/addressbook/contacts/]
 handle contacts
 
 ## Create a single contact [POST]
 
-+ request create a person (application/hal+json)
++ request create a person (application/json)
 
         {
             "firstName": "Bart",
             "lastName": "Simpson",
             "title": "Student"
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {
@@ -136,12 +156,12 @@ handle contacts
                 "respTimeMs": 12
             }
         }
-+ request create a company (application/hal+json)
++ request create a company (application/json)
 
         {
             "companyName": "foobar inc"
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {
@@ -158,14 +178,14 @@ handle contacts
                 "respTimeMs": 12
             }
         }
-+ request create a person/company combo and split into multiple IDs (application/hal+json)
++ request create a person/company combo and split into multiple IDs (application/json)
 
         {
             "firstName": "foo",
             "lastName": "bar",
             "companyName": "foobar inc"
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": [{
@@ -191,7 +211,7 @@ handle contacts
                 "respTimeMs": 12
             }
         }
-+ request create an assistant assoc (application/hal+json)
++ request create an assistant assoc (application/json)
 
         {
             "firstName": "Money",
@@ -199,7 +219,7 @@ handle contacts
             "title": "assistant",
             "assists": ["aaaaaaaa"]
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {
@@ -225,7 +245,7 @@ handle contacts
             }
         }
 
-+ request create an assistant assoc with an assoc override (application/hal+json)
++ request create an assistant assoc with an assoc override (application/json)
 
         {
             "firstName": "Money",
@@ -237,7 +257,7 @@ handle contacts
                 }
             }
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {
@@ -262,7 +282,7 @@ handle contacts
             }
         }
 
-+ request create an employee assoc to a company with an extension (application/hal+json)
++ request create an employee assoc to a company with an extension (application/json)
 
         {
             "firstName": "James",
@@ -274,7 +294,7 @@ handle contacts
                 }
             }
         }
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {
@@ -301,14 +321,14 @@ handle contacts
         }
         
 ## Update a single contact [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single contact [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## query contacts [PUT]
 
-+ request query for contacts (application/hal+json)
++ request query for contacts (application/json)
 
         {
             "fields": {
@@ -322,7 +342,7 @@ handle contacts
             
         }
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "id": "123456"
@@ -333,28 +353,28 @@ handle contacts
 handle street addresses
 
 ## Search all street addresses [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single street addresses [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single street addresses [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # bulk import contacts [/v1/addressbook/import]
 import contacts in bulk
 
 ## Upload dataset of new contacts [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete multiple contacts [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # export contacts [/v1/addressbook/export]
 export contacts
 
 ## pass in query object [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # Group planning
 
@@ -362,61 +382,61 @@ export contacts
 handle projects
 
 ## Search all projects [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single project [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single project [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single project [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # milestones [/v1/planning/milestones]
 handle milestones
 
 ## Search all milestones [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single milestone [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single milestone [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single milestone [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # tasks [/v1/planning/tasks]
 handle tasks
 
 ## Search all tasks [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single task [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single task [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single task [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # taskentries [/v1/planning/tasksentries]
 handle taskentries
 
 ## Search all taskentries [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single taskentry [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single taskentry [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single taskentry [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # Group access
 
@@ -424,70 +444,70 @@ handle taskentries
 handle users
 
 ## Search all users [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single user [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single user [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single user [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # usergroups [/access/usergroups]
 handle usergroups
 
 ## Search all usergroups [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single usergroup [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single usergroup [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single usergroup [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # accounts [/v1/access/accounts]
 handle accounts
 
 ## Search all accounts [GET]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Create a single account [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Update a single account [PATCH]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## Delete a single account [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # authenticate [/v1/access/authenticate/]
 
 ## pass username/password to login to the system [POST]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## pass an auth token to logoff the system [DELETE]
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 # authorize [/v1/access/authorize/{shortName}/{id}]
 
 ## pass subject/object to check if user has access to that object [POST]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
 ## check if a user has access to an object and visa versa [GET]
 
-+ request get all user permissions to a specific object (application/hal+json)
++ request get all user permissions to a specific object (application/json)
 
 + Parameters
     + shortName (required, string, `user,usergroup,project,task`) ... shortName of item
     + id (required, string, `234234`) ... id of object to check access to
     
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
         {
             "data": {

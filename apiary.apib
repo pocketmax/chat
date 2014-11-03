@@ -55,10 +55,10 @@ each response should be in this format
     "pageInfo": {               //only used if paginated results are applied
         "currentItemCount": 4,  //current items desplayed on the page
         "pageIndex": 4,         //current page
-        "totalPages": 10,       //total number of pages in the result set
+        "pageCount": 10,       //total number of pages in the result set
         "itemsPerPage": 10      //total number of items per page
         "startIndex": 1,        //the index of the first item in the current paged results
-        "totalItems": 100       //total number of items in the entire results set
+        "itemCount": 100       //total number of items in the entire results set
         "_links": {
             "next": "/v1/addressbook/contacts/",
             "current": "/v1/addressbook/contacts/",
@@ -244,7 +244,6 @@ handle contacts
                 "respTimeMs": 12
             }
         }
-
 + request create an assistant assoc with an assoc override (application/json)
 
         {

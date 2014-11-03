@@ -30,8 +30,9 @@ each response should be in this format
 ```js
 {
     "data":{
+        "FIELD": "VALUE",
         "_customFields": {
-            "mybla": "123"
+            "FIELD": "VALUE"
         },
         "_links": {
             "actions": {
@@ -39,21 +40,22 @@ each response should be in this format
             },
             "assoc": {
                 "contacts": {
-                    "parents": {
-                        "1111111": "/v1/addressbook/contacts/111111",
-                        "2222222": "/v1/addressbook/contacts/222222"
+                    "ASSOCIATION": {
+                        "1111111": "/v1/addressbook/contacts/111111"
                     }
                 },
                 "orgunits": {
-                    "school": {
+                    "ASSOCIATION": {
                         "aaaaaa": "/v1/addressbook/orgunits/aaaaaa"
-                    },
-                    "classes": {
-                        "bbbbbb": "/v1/addressbook/orgunits/bbbbbb"
                     }
                 }
             }
         }
+    },
+    "pageinfo": {
+        "currentItemCount": 4   //current items desplayed on the page
+        "pageIndex": 4          //current page
+        "totalPages": 10
     },
     "success": true,
     "results": {
@@ -122,7 +124,7 @@ handle contacts
                 "firstName": "Bart",
                 "lastName": "Simpson",
                 "title": "Student",
-                "links": {
+                "_links": {
                     "actions": {
                         "delete": "/addressbook/contacts/123456"
                     }
@@ -279,7 +281,7 @@ handle contacts
                 "firstName": "James",
                 "lastName": "Bond",
                 "title": "admin assistant",
-                "links": {
+                "_links": {
                     "assoc": {
                         "contacts": {
                             "worksat": {
@@ -304,7 +306,6 @@ handle contacts
 + Response 200 (application/hal+json)
 
 ## query contacts [PUT]
-+ Response 200 (application/hal+json)
 
 + request query for contacts (application/hal+json)
 

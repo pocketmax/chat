@@ -30,6 +30,7 @@ each response should be in this format
 ```js
 {
     "data":{},
+    "success": true,
     "results": {
         "actions": {
             "delete": "/addressbook/contacts/ggggggg"
@@ -53,7 +54,6 @@ each response should be in this format
     }
 }
 ```
-
 
 # Group addressbook
 
@@ -123,8 +123,9 @@ handle contacts
                     }
                 }
             },
+            "success": true,
             "results": {
-                "respTimeMs": "12"
+                "respTimeMs": 12
             }
         }
 + request create a company (application/hal+json)
@@ -135,9 +136,21 @@ handle contacts
 + Response 200 (application/hal+json)
 
         {
-            "id": "123456"
+            "data": {
+                "id": "123456",
+                "companyName": "foobar inc",
+                "links": {
+                    "actions": {
+                        "delete": "/addressbook/contacts/123456"
+                    }
+                }
+            },
+            "success": true,
+            "results": {
+                "respTimeMs": 12
+            }
         }
-+ request create a person/company combo and return multiple IDs (application/hal+json)
++ request create a person/company combo and split into multiple IDs (application/hal+json)
 
         {
             "firstName": "foo",
@@ -148,28 +161,135 @@ handle contacts
 
         {
             "data": [{
-                "id": "123456"
+                "id": "123456",
+                "companyName": "foobar inc",
+                "links": {
+                    "actions": {
+                        "delete": "/addressbook/contacts/123456"
+                    }
+                }
             },{
-                "id": "453445"
-            }]
+                "id": "aaaaaa",
+                "firstName": "foo",
+                "lastName": "bar",
+                "links": {
+                    "actions": {
+                        "delete": "/addressbook/contacts/aaaaaa"
+                    }
+                }
+            }],
+            "success": true,
+            "results": {
+                "respTimeMs": 12
+            }
         }
-
 + request create an assistant assoc (application/hal+json)
 
         {
-            "firstName": "foo",
-            "lastName": "bar",
+            "firstName": "Money",
+            "lastName": "Penny",
             "title": "assistant",
-            "assists": [123,456]  //contact ids of people they assist
+            "assists": ["aaaaaaaa"]
         }
 + Response 200 (application/hal+json)
 
         {
-            "data": [{
-                "id": "123456"
-            },{
-                "id": "453445"
-            }]
+            "data": {
+                "id": "123456",
+                "firstName": "Money",
+                "lastName": "Penny",
+                "title": "assistant",
+                "links": {
+                    "actions": {
+                    },
+                    "assoc": {
+                        "contacts": {
+                            "assists": {
+                                "aaaaaaaa": "/addressbook/contacts/aaaaaaaaa"
+                            }
+                        }
+                    }
+                }
+            },
+            "success": true,
+            "results": {
+                "respTimeMs": 12
+            }
+        }
+
++ request create an assistant assoc with an assoc override (application/hal+json)
+
+        {
+            "firstName": "Money",
+            "lastName": "Penny",
+            "title": "admin assistant",
+            "assists": {
+                "aaaaaaaa": {
+                    "title": "assistant"
+                }
+            }
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "data": {
+                "id": "123456",
+                "firstName": "Money",
+                "lastName": "Penny",
+                "title": "assistant",
+                "links": {
+                    "assoc": {
+                        "contacts": {
+                            "assists": {
+                                "aaaaaaaa": "/addressbook/contacts/aaaaaaaaa"
+                            }
+                        }
+                    }
+                }
+
+            },
+            "success": true,
+            "results": {
+                "respTimeMs": 12,
+            }
+        }
+
++ request create an employee assoc to a company with an extension (application/hal+json)
+
+        {
+            "firstName": "James",
+            "lastName": "Bond",
+            "title": "admin assistant",
+            "worksat": {
+                "bbbbbbbb": {
+                    "phoneExt": 453
+                }
+            }
+        }
++ Response 200 (application/hal+json)
+
+        {
+            "data": {
+                "id": "123456",
+                "firstName": "James",
+                "lastName": "Bond",
+                "title": "admin assistant",
+                "links": {
+                    "assoc": {
+                        "contacts": {
+                            "worksat": {
+                                "bbbbbbbb": {
+                                    "phoneExt": 453
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            success: true,
+            "results": {
+                "respTimeMs": 12
+            }
         }
         
 ## Update a single contact [PATCH]

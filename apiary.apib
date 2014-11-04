@@ -327,6 +327,15 @@ handle street addresses
 ## Delete a single street addresses [DELETE]
 + Response 200 (application/json)
 
+# street addresses [/v1/addressbook/orgunits]
+handle org units i.e. departments
+
+## Update a single orgunit [PATCH]
++ Response 200 (application/json)
+
+## Delete a single orgunit [DELETE]
++ Response 200 (application/json)
+
 # bulk import contacts [/v1/addressbook/import]
 import contacts in bulk
 
@@ -334,12 +343,6 @@ import contacts in bulk
 + Response 200 (application/json)
 
 ## Delete multiple contacts [DELETE]
-+ Response 200 (application/json)
-
-# export contacts [/v1/addressbook/export]
-export contacts
-
-## pass in query object [POST]
 + Response 200 (application/json)
 
 # Group planning

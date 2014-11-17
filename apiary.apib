@@ -85,7 +85,31 @@ each response should be in this format
 }
 ```
 
-# Group access
+# Group accounts
+
+# accounts [/v1/accounts]
+handle accounts
++ Response 200 (application/json)
+
+## create an account [POST]
++ Response 200 (application/json)
+
+## handle an individual account [/v1/accounts/{id}]
+Get a single account
++ request get a single account (application/json)
+
++ Parameters
+    + id (required, string, `456`) ... account id to delete
+
+## get the account [GET]
++ Response 200 (application/json)
+
+## update an account [PATCH]
++ Response 200 (application/json)
+
+
+
+# Group users
 
 # users [/v1/users]
 handle users
@@ -100,9 +124,23 @@ Searches all the users for that specific company
 ## Update a single user [PATCH]
 + Response 200 (application/json)
 
-## Delete a single user [DELETE]
-//## Delete a single user [DELETE]
+## DELETE /v1/users/{id}
+Delete a single user
++ request get a specific contact (application/json)
+
++ Parameters
+    + id (required, string, `123`) ... user id to delete
+
 + Response 200 (application/json)
+
+
+
+
+
+
+
+
+
 
 # usergroups [/v1/usergroups]
 handle usergroups
@@ -117,21 +155,6 @@ handle usergroups
 + Response 200 (application/json)
 
 ## Delete a single usergroup [DELETE]
-+ Response 200 (application/json)
-
-# accounts [/v1/accounts]
-handle accounts
-
-## Search all accounts [GET]
-+ Response 200 (application/json)
-
-## Create a single account [POST]
-+ Response 200 (application/json)
-
-## Update a single account [PATCH]
-+ Response 200 (application/json)
-
-## Delete a single account [DELETE]
 + Response 200 (application/json)
 
 # authenticate [/v1/auth]
